@@ -1,0 +1,31 @@
+<?php
+$product = $block->getLoadProduct($block->getProductId());
+$upSellProducts = $product->getUpSellProducts();
+shuffle($upSellProducts);
+$counter = 0;
+$id=0;
+foreach ($upSellProducts as $upSellProduct) {
+    $counter++;
+    $id++;
+    if ($counter == 4) break;
+    $productId = $upSellProduct->getId();
+    $products = $block->getLoadProduct($productId);
+    echo '<div class="upsell-item">';
+    echo $products->getName() . '<br/>';
+    $productImageUrl = $block->getUrl('pub/media/catalog') . 'product' . $products->getImage();
+    echo '<img src="' . $productImageUrl . '" class="upsell-image"><br/>';
+    ?>
+    <form data-role="tocart-form" class="" data-product-sku="<?php echo $upSellProduct->getSku(); ?>"
+          action="<?php echo $block->getAddToCartUrl($products) ?>" method="post">
+        <input type="hidden" name="product" value="<?php echo $upSellProduct->getSku(); ?>">
+        <input id="txt_key" name="form_key" type="hidden" value="<?php echo $block->getFormKey(); ?>">
+        <p class="addProduct d-flex" id="<?php echo $id ?>">
+            <button type="submit" title="Add to Cart" class="action tocart primary">
+                <span>Add to Cart</span>
+            </button>
+        </p>
+    </form>
+    <?php
+    echo '</div>';
+}
+?>

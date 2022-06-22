@@ -1,0 +1,14 @@
+.ui-dialog-content {
+    width: 600px !important;
+}
+
+.upsell-image {
+    width: 100px !important;
+}
+
+.upsell-item {
+    float: left;
+    padding-right: 17px;
+    padding-left: 25px;
+    text-align: center;
+}
